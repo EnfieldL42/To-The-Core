@@ -56,12 +56,17 @@ public class Gun : MonoBehaviour
                     Destroy(breakParticles, 1f);
                     for (int y = -breakRadius; y < breakRadius + 1; y++)
                     {
-                        for (int x = -breakRadius; x < breakRadius + 1; x++)
+                        for (int i = -breakRadius; i <= breakRadius; i++)
                         {
-                            tilemap.SetTile(new Vector3Int((int)hit.point.x + x, (int)hit.point.y + y, 0), null);
+                            for (int x = -breakRadius; x <= breakRadius; x++)
+                            {
+                                // Convert hit.point to tile position
+                                Vector3Int tilePos = tilemap.WorldToCell(hit.point) + new Vector3Int(x, y, 0);
 
+                                // Clear the tile at the calculated position
+                                tilemap.SetTile(tilePos, null);
+                            }
                         }
-
 
                     }
 
