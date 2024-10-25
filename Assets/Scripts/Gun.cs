@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Gun : MonoBehaviour
 {
+    // Existing gun properties
     public bool InvertControls;
     private float timebtwshots;
     public float startTimeBtwShots;
@@ -23,71 +24,89 @@ public class Gun : MonoBehaviour
     public GameObject Guun;
     public Transform Firepoint;
     public Animator Anim;
-    // Start is called before the first frame update
+
     void Start()
     {
-       if (!IsLaser)
+        if (!IsLaser)
         {
             Anim = gameObject.GetComponent<Animator>();
         }
     }
+
     public void Mine()
     {
-        
-       if (IsLaser)
+        if (!IsLaser) return;
+
+        charge += Time.deltaTime;
+
+        // Adjust the raycast origin slightly forward to avoid self-collision
+        Vector2 rayOrigin = (Vector2)transform.position + (Vector2)transform.up * 0.1f;
+
+        // Use ContactFilter2D for more precise collision detection
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(~playerr);
+        filter.useLayerMask = true;
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, transform.up, 500f, ~playerr);
+
+        Debug.DrawRay(rayOrigin, transform.up * 500f, Color.green);
+
+        if (hit.collider != null)
         {
-            charge += Time.deltaTime;
+            HitpointUpdate = hit.point;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 500f, ~playerr);
-            Debug.DrawRay(transform.position, transform.up, Color.green);
-
-            // If it hits something...
-            if (hit.collider != null)
-            {
-                HitpointUpdate = hit.point;
-                if (charge > chargeTime)
-                {
-
-                    charge = 0f;
-                    GameObject breakParticles = Instantiate(breakParticlesPrefab, hit.point, Quaternion.identity);
-                    //print(hit.point.ToString());
-                    Hitpoint = hit.point;
-                    FindFirstObjectByType<AudioManager>().PlayP("Break");
-                    Destroy(breakParticles, 1f);
-                    for (int y = -breakRadius; y < breakRadius + 1; y++)
-                    {
-                        for (int i = -breakRadius; i <= breakRadius; i++)
-                        {
-                            for (int x = -breakRadius; x <= breakRadius; x++)
-                            {
-                                // Convert hit.point to tile position
-                                Vector3Int tilePos = tilemap.WorldToCell(hit.point) + new Vector3Int(x, y, 0);
-
-                                // Clear the tile at the calculated position
-                                tilemap.SetTile(tilePos, null);
-                            }
-                        }
-
-                    }
-
-
-                }
-            }
-
-            else
+            if (charge > chargeTime)
             {
                 charge = 0f;
+                BreakTiles(hit.point);
             }
         }
-       
+        else
+        {
+            charge = 0f;
+        }
     }
+
+    private void BreakTiles(Vector2 hitPoint)
+    {
+        // Spawn break particles
+        GameObject breakParticles = Instantiate(breakParticlesPrefab, hitPoint, Quaternion.identity);
+        Destroy(breakParticles, 1f);
+
+        // Play break sound
+        FindFirstObjectByType<AudioManager>()?.PlayP("Break");
+
+        // Store hit point for reference
+        Hitpoint = hitPoint;
+
+        // Convert world position to cell position
+        Vector3Int cellPosition = tilemap.WorldToCell(hitPoint);
+
+        // Break tiles in radius (keeping your triple loop structure)
+        for (int y = -breakRadius; y < breakRadius + 1; y++)
+        {
+            for (int i = -breakRadius; i <= breakRadius; i++)
+            {
+                for (int x = -breakRadius; x <= breakRadius; x++)
+                {
+                    Vector3Int tilePos = cellPosition + new Vector3Int(x, y, 0);
+
+                    // Only break if there's actually a tile there
+                    if (tilemap.HasTile(tilePos))
+                    {
+                        tilemap.SetTile(tilePos, null);
+                    }
+                }
+            }
+        }
+    }
+
     public void RotateLeft(float control)
     {
         if (InvertControls)
         {
             if (Rotation < 270 & control < -0.2)
             {
-
                 transform.Rotate(0, 0, 60 * Time.deltaTime);
             }
         }
@@ -95,12 +114,11 @@ public class Gun : MonoBehaviour
         {
             if (Rotation > 140 & control < -0.2)
             {
-
                 transform.Rotate(0, 0, -60 * Time.deltaTime);
             }
         }
-        
     }
+
     public void RotateRight(float control)
     {
         if (InvertControls)
@@ -117,40 +135,27 @@ public class Gun : MonoBehaviour
                 transform.Rotate(0, 0, 60 * Time.deltaTime);
             }
         }
-           
     }
+
     public void Shoot()
     {
         if (!IsLaser)
         {
-           
-            if(timebtwshots <= 0)
+            if (timebtwshots <= 0)
             {
                 FindFirstObjectByType<AudioManager>().PlayP("Gun");
                 Instantiate(projectile, Firepoint.position, transform.rotation);
                 timebtwshots = startTimeBtwShots;
             }
-            
         }
     }
 
-    // Update is called once per frame
     void Update()
-    {      
+    {
         Rotation = transform.localEulerAngles.z;
-        if (timebtwshots <= 0)
-        {
-
-        }
-        else
+        if (timebtwshots > 0)
         {
             timebtwshots -= Time.deltaTime;
         }
-
-
-    }
-    private void FixedUpdate()
-    {
-        
     }
 }
