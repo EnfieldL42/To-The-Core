@@ -3,12 +3,12 @@
     "maps": [
         {
             "name": "Controls",
-            "id": "667762c3-261d-4257-8785-8a7621195157",
+            "id": "8f9c7279-8117-4253-b939-d7136ca74b2d",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "0154c836-0d2c-4b6a-bf98-cbc977040ea9",
+                    "id": "2610620f-8c97-4c43-a2bc-92305bb15f5f",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "760540da-3f06-4500-8f77-997cd1d787a5",
+                    "id": "70f95d2b-cda6-42a2-91e1-544959bb22ff",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -26,8 +26,8 @@
                 {
                     "name": "Action",
                     "type": "Button",
-                    "id": "aac4926d-2e66-465a-81d9-62a20f4d4bfd",
-                    "expectedControlType": "Button",
+                    "id": "873a42f5-c6f6-4686-bca0-b7a98e317305",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -35,8 +35,8 @@
                 {
                     "name": "Escape",
                     "type": "Button",
-                    "id": "9f1c3bef-32f3-44a5-92b5-10546544c48d",
-                    "expectedControlType": "Button",
+                    "id": "63ccb970-a276-4e0a-9c90-6a47cc375836",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -44,7 +44,7 @@
                 {
                     "name": "ActionOff",
                     "type": "Button",
-                    "id": "d544b239-621d-489c-bd82-29549ef362ba",
+                    "id": "75868179-6652-4a50-97ff-98e3874fd757",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -54,29 +54,18 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "b225cc1a-75dc-4f5f-ad4d-5f6a9267bdd3",
+                    "id": "4381fe34-4b6e-4c22-b1fa-eacd76e273b0",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "StickDeadzone",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bcc169f7-2eec-4419-b935-5f9e8eb58ef5",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "StickDeadzone",
-                    "groups": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "2D Vector",
-                    "id": "aa883a08-1b82-4f4d-9956-74eb15644336",
+                    "id": "f70017c4-e35c-49f4-be1c-f47956bf9870",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
@@ -86,177 +75,133 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
-                    "id": "82bb5050-66f3-4510-8a99-187209ecfb63",
+                    "name": "up",
+                    "id": "10feecf7-83b0-41db-82f9-bc5ecbbd48f1",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Down",
-                    "id": "687b15c0-7525-459a-88e2-acc00c4a0a0b",
+                    "name": "down",
+                    "id": "1e549d29-ac24-48f7-ab64-7bda341cce27",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Left",
-                    "id": "7bd1842e-1885-48fa-a91d-aebe582e5498",
+                    "name": "left",
+                    "id": "798fd535-4370-4b41-b9dd-7928da0e43e9",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Right",
-                    "id": "a549b814-ef33-44de-9ccd-84ef07a406b4",
+                    "name": "right",
+                    "id": "5cbe3709-f807-4ed4-a36b-34ebf848c12f",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "6c64d87e-0a26-4405-8713-06dcf0cc638b",
+                    "id": "556e42b6-7f1e-4d34-aea5-bf779fb3f5e0",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "886a777f-913e-4d2d-acbc-94f6fcaffb32",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1ee3769-a6d5-4d49-9096-71813e9ddc4a",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "90da340d-9130-40c5-b104-4c2a1c14124a",
-                    "path": "<HID::Generic   USB  Joystick  >/button3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6e60dd2d-12a0-4b6e-a04c-96fb04e99d87",
+                    "id": "e09e533e-efcb-4460-b602-94f5dccafdd3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f5da5cf9-683a-4118-9e2c-32b5e8922b2d",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8a8aa5e-f040-4fa3-a337-159178ebb54f",
-                    "path": "<HID::Generic   USB  Joystick  >/button6",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b243e39c-5b02-4869-a999-ba0b9dab388b",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f8123093-4ee0-477e-8c63-781692f8dd4b",
+                    "id": "e71b5307-b048-4608-a898-47efe3ff0814",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d599222e-29ea-4e5d-89d8-bf0e143d17ed",
-                    "path": "<HID::Generic   USB  Joystick  >/button2",
+                    "id": "5c6d141c-eef1-4633-b868-2416e035fd78",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "5a375d82-a410-484a-9aac-778b3a7ae41c",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
+                    "id": "24245c3c-d5c9-4c8c-9eec-5662f2a6cae0",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
-                    "action": "Escape",
+                    "groups": ";Keyboard",
+                    "action": "ActionOff",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "787d212a-0167-4e85-8798-55eca57a21a3",
+                    "id": "f7321602-0fde-429d-bc9d-6bf33030f14b",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
-                    "action": "ActionOff",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "894f1221-1a6e-4c85-a76d-a0c7ea4e4bde",
-                    "path": "<HID::Generic   USB  Joystick  >/button6",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ActionOff",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d8e36020-2e55-4a6b-b631-e7973c5cde4e",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "ActionOff",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -264,5 +209,28 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

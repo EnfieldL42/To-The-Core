@@ -3334,7 +3334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 155325656}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3677,7 +3677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198045259}
   - component: {fileID: 198045260}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3718,7 +3718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 200760225}
   - component: {fileID: 200760226}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: PowerReserve3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14615,7 +14615,7 @@ MonoBehaviour:
   chargeTime: 0
   playerr:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   Hitpoint: {x: 0, y: 0}
   HitpointUpdate: {x: 0, y: 0}
   rb: {fileID: 0}
@@ -14642,7 +14642,7 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -14709,7 +14709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 532012852}
   - component: {fileID: 532012853}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Ship (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15854,7 +15854,7 @@ GameObject:
   - component: {fileID: 650096131}
   - component: {fileID: 650096135}
   - component: {fileID: 650096134}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -16110,7 +16110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 657808875}
   - component: {fileID: 657808876}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17541,7 +17541,7 @@ MonoBehaviour:
   chargeTime: 0
   playerr:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
   Hitpoint: {x: 0, y: 0}
   HitpointUpdate: {x: 0, y: 0}
   rb: {fileID: 0}
@@ -17568,7 +17568,7 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -18083,7 +18083,7 @@ MonoBehaviour:
   chargeTime: 0.3
   playerr:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   Hitpoint: {x: 0, y: 0}
   HitpointUpdate: {x: 0, y: 0}
   rb: {fileID: 0}
@@ -18127,7 +18127,7 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -19477,7 +19477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961584488}
   - component: {fileID: 961584489}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20153,7 +20153,7 @@ GameObject:
   - component: {fileID: 1017165420}
   - component: {fileID: 1017165422}
   - component: {fileID: 1017165423}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: ShipOutside
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -20267,14 +20267,14 @@ Transform:
   - {fileID: 155325656}
   - {fileID: 1542789121}
   - {fileID: 1322236335}
+  - {fileID: 2053438667}
+  - {fileID: 1795874032}
   - {fileID: 739251681}
   - {fileID: 652069828}
   - {fileID: 661713323}
   - {fileID: 593911884}
   - {fileID: 1137710716}
   - {fileID: 341152825849915670}
-  - {fileID: 2053438667}
-  - {fileID: 1795874032}
   - {fileID: 3783770906925741872}
   - {fileID: 1328940747}
   - {fileID: 1433041522}
@@ -20921,7 +20921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1062618262}
   - component: {fileID: 1062618263}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: PowerReserve1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22153,7 +22153,7 @@ GameObject:
   - component: {fileID: 1137710716}
   - component: {fileID: 1137710717}
   - component: {fileID: 1137710718}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23589,7 +23589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1260499348}
   - component: {fileID: 1260499349}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: PowerReserve2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23815,7 +23815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282463649}
   - component: {fileID: 1282463650}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Miner2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24324,7 +24324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1338898539}
   - component: {fileID: 1338898540}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28220,7 +28220,7 @@ GameObject:
   - component: {fileID: 1884981710}
   - component: {fileID: 1884981711}
   - component: {fileID: 1884981712}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29080,7 +29080,7 @@ MonoBehaviour:
   chargeTime: 0.3
   playerr:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   Hitpoint: {x: 0, y: 0}
   HitpointUpdate: {x: 0, y: 0}
   rb: {fileID: 0}
@@ -29107,7 +29107,7 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -29461,7 +29461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026082521}
   - component: {fileID: 2026082520}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30662,7 +30662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
       propertyPath: m_RootOrder
@@ -30718,6 +30718,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
+      propertyPath: OnlyDeactivate
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
