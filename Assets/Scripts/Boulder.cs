@@ -5,7 +5,7 @@ using UnityEngine;
 
     public class Boulder : MonoBehaviour
     {
-    private Health Health;
+        private Health Health;
         public float Speed;
         private Rigidbody2D Rb;
         public GameObject breakParticlesPrefab;
@@ -29,12 +29,12 @@ using UnityEngine;
 
             }
         }
-    public void Destroy()
-    {
-        FindFirstObjectByType<AudioManager>().PlayP("ShipHit");
-        GameObject breakParticles = Instantiate(breakParticlesPrefab, transform.position, Quaternion.identity);
-        Destroy(breakParticles, 1f);
-        CameraShake.Instance.Shake(3, 0.2f);
-        Destroy(gameObject);
-    }
+        public void Destroy()
+        {
+            FindFirstObjectByType<AudioManager>().PlayP("ShipHit");
+            GameObject breakParticles = Instantiate(breakParticlesPrefab, transform.position, Quaternion.identity);
+            Destroy(breakParticles, 1f);
+            CameraShake.Instance.Shake(3, 0.2f);
+            Destroy(gameObject);
+        }
     }
