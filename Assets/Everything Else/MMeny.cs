@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class MMeny : MonoBehaviour
@@ -26,5 +27,19 @@ public class MMeny : MonoBehaviour
         {
             animatior.SetBool("Used", true);
         }
+    }
+    public void HostGame()
+    {
+        LobbyManager.Instance.StartNetworkAsHost();
+    }
+
+    public void JoinGame()
+    {
+        LobbyManager.Instance.StartNetworkAsClient();
+    }
+
+    public void AddLocalPlayer()
+    {
+        LobbyManager.Instance.RequestJoin();
     }
 }
