@@ -1,26 +1,33 @@
 using Unity.Netcode;
 using System;
 
-[System.Serializable]
+[Serializable]
 public struct LobbyPlayer : INetworkSerializable, IEquatable<LobbyPlayer>
 {
-    public ulong ClientId;      // Network client ID
-    public int LocalPlayerId;   // Local player index on that client
-    public int Slot;            // Slot in lobby
+    public ulong ClientId;
+    public int LocalPlayerId;
+    public int Slot;
+
+    public int CharacterId;
+    public bool Ready;
 
     public LobbyPlayer(ulong clientId, int localPlayerId, int slot)
     {
         ClientId = clientId;
         LocalPlayerId = localPlayerId;
         Slot = slot;
+
+        CharacterId = -1;
+        Ready = false;
     }
 
-    // Required for NetworkList syncing
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref ClientId);
         serializer.SerializeValue(ref LocalPlayerId);
         serializer.SerializeValue(ref Slot);
+        serializer.SerializeValue(ref CharacterId);
+        serializer.SerializeValue(ref Ready);
     }
 
     public bool Equals(LobbyPlayer other)

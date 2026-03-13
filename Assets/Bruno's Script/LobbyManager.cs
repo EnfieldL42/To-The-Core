@@ -29,18 +29,6 @@ public class LobbyManager : NetworkBehaviour
 
     }
 
-    void Update()
-    {
-        //DEBUG
-        debugLobbyPlayers.Clear();
-
-        foreach (var p in lobbyPlayers)
-        {
-            debugLobbyPlayers.Add(p);
-        }
-        //
-    }
-
 
     public int TotalPlayers => lobbyPlayers.Count;
 
@@ -54,31 +42,41 @@ public class LobbyManager : NetworkBehaviour
     {
         if (!IsClient) return;
 
-        JoinLobbyRpc(localPlayerId);
+        JoinLobbyRpc();
     }
 
     /// <summary>
     /// RPC: Server adds the player to the NetworkList
     /// </summary>
     [Rpc(SendTo.Server)]
-    private void JoinLobbyRpc(int localPlayerId, RpcParams rpcParams = default)
+    private void JoinLobbyRpc(RpcParams rpcParams = default)
     {
-        if (!IsServer) return; // Only server modifies the NetworkList
+        if (!IsServer) return;
 
         ulong clientId = rpcParams.Receive.SenderClientId;
 
         if (lobbyPlayers.Count >= maxPlayers)
             return;
 
-        // Prevent duplicates (same local player on same client)
+        bool isHost = clientId == NetworkManager.ServerClientId;
+
+        // Count players from this client
+        int playersFromClient = 0;
         foreach (var p in lobbyPlayers)
         {
-            if (p.ClientId == clientId && p.LocalPlayerId == localPlayerId)
-                return;
+            if (p.ClientId == clientId)
+                playersFromClient++;
         }
+
+        // Non-host clients can only have one player
+        if (!isHost && playersFromClient >= 1)
+            return;
 
         int slot = GetNextAvailableSlot();
         if (slot == -1) return;
+
+        // Server assigns LocalPlayerId
+        int localPlayerId = playersFromClient;
 
         LobbyPlayer newPlayer = new LobbyPlayer(clientId, localPlayerId, slot);
         lobbyPlayers.Add(newPlayer);
@@ -109,19 +107,20 @@ public class LobbyManager : NetworkBehaviour
     /// </summary>
     private int GetNextAvailableSlot()
     {
+        bool[] usedSlots = new bool[maxPlayers];
+
+        foreach (var p in lobbyPlayers)
+        {
+            if (p.Slot >= 0 && p.Slot < maxPlayers)
+                usedSlots[p.Slot] = true;
+        }
+
         for (int i = 0; i < maxPlayers; i++)
         {
-            bool used = false;
-            foreach (var p in lobbyPlayers)
-            {
-                if (p.Slot == i)
-                {
-                    used = true;
-                    break;
-                }
-            }
-            if (!used) return i;
+            if (!usedSlots[i])
+                return i;
         }
+
         return -1;
     }
 
@@ -130,6 +129,11 @@ public class LobbyManager : NetworkBehaviour
     /// </summary>
     private void OnLobbyListChanged(NetworkListEvent<LobbyPlayer> changeEvent)
     {
+        debugLobbyPlayers.Clear();
+
+        foreach (var p in lobbyPlayers)
+            debugLobbyPlayers.Add(p);
+
         Debug.Log($"Lobby changed: {changeEvent.Type}, total players: {lobbyPlayers.Count}");
     }
 }

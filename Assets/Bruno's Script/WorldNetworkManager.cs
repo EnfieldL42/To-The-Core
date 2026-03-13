@@ -52,7 +52,10 @@ public class WorldNetworkManager : MonoBehaviour
     private void OnClientDisconnect(ulong clientId)
     {
         if (LobbyManager.instance != null)
+        {
             LobbyManager.instance.RemoveLobbyPlayer(clientId);
+            WorldInputManager.instance.PlayerDisconnected();
+        }
     }
 
     void OnDestroy()
