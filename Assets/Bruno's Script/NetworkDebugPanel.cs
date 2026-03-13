@@ -3,40 +3,33 @@ using UnityEngine;
 
 public class NetworkDebugPanel : MonoBehaviour
 {
-    void OnGUI()
+    [SerializeField] private bool showPanel = true;
+    private Vector2 scrollPosition;
+
+    private void OnGUI()
     {
-        if (!NetworkManager.Singleton) return;
+        if (!showPanel || LobbyManager.instance == null) return;
 
-        GUILayout.BeginArea(new Rect(10, 10, 300, 500), GUI.skin.box);
+        // Panel background
+        GUI.Box(new Rect(10, 10, 300, 200), "Lobby Debug");
 
-        GUILayout.Label("=== NETWORK DEBUG ===");
+        GUILayout.BeginArea(new Rect(15, 35, 290, 160));
 
-        GUILayout.Label($"IsHost: {NetworkManager.Singleton.IsHost}");
-        GUILayout.Label($"IsServer: {NetworkManager.Singleton.IsServer}");
-        GUILayout.Label($"IsClient: {NetworkManager.Singleton.IsClient}");
+        // Scrollable area in case many players
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
-        GUILayout.Space(10);
+        GUILayout.Label($"Total Players: {LobbyManager.instance.TotalPlayers}/{LobbyManager.instance.maxPlayers}");
 
-        GUILayout.Label($"Local Client ID: {NetworkManager.Singleton.LocalClientId}");
-
-        GUILayout.Space(10);
-
-        GUILayout.Label("Connected Clients:");
-
-        foreach (var client in NetworkManager.Singleton.ConnectedClients)
+        foreach (var player in LobbyManager.instance.LobbyPlayers)
         {
-            GUILayout.Label($"ClientID: {client.Key}");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label($"Client: {player.ClientId}", GUILayout.Width(90));
+            GUILayout.Label($"Local: {player.LocalPlayerId}", GUILayout.Width(60));
+            GUILayout.Label($"Slot: {player.Slot}", GUILayout.Width(50));
+            GUILayout.EndHorizontal();
         }
 
-        GUILayout.Space(10);
-        GUILayout.Label("Lobby Players:");
-
-        foreach (var p in LobbyManager.Instance.GetLobbyPlayers())
-        {
-            GUILayout.Label($"Client {p.ClientId} Player {p.PlayerIndex}");
-        }
-
+        GUILayout.EndScrollView();
         GUILayout.EndArea();
-
     }
 }

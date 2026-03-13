@@ -28,18 +28,15 @@ public class MMeny : MonoBehaviour
             animatior.SetBool("Used", true);
         }
     }
+
     public void HostGame()
     {
-        LobbyManager.Instance.StartNetworkAsHost();
+        WorldNetworkManager.instance.StartAsHost();
     }
 
     public void JoinGame()
     {
-        LobbyManager.Instance.StartNetworkAsClient();
+        WorldNetworkManager.instance.StartAsClient();
     }
 
-    public void AddLocalPlayer()
-    {
-        LobbyManager.Instance.RequestJoin();
-    }
 }

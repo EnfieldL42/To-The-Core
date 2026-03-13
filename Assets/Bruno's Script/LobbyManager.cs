@@ -4,95 +4,132 @@ using UnityEngine;
 
 public class LobbyManager : NetworkBehaviour
 {
-    public static LobbyManager Instance;
+    public static LobbyManager instance;
 
-    [SerializeField] private int maxPlayers = 4;
+    public int maxPlayers = 4;
 
-    // tracks how many local players each client has
-    //private Dictionary<ulong, int> clientPlayerCounts = new();
+    private NetworkList<LobbyPlayer> lobbyPlayers;
 
-    [SerializeField] private List<LobbyPlayer> lobbyPlayers = new List<LobbyPlayer>();
-
+    //DEBUG
+    [SerializeField] private List<LobbyPlayer> debugLobbyPlayers = new();
+    //
 
     private void Awake()
     {
-        Instance = this;
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (IsServer)
+        if (instance != null && instance != this)
         {
-            NetworkManager.OnClientDisconnectCallback += OnClientDisconnect;
-        }
-    }
-
-    public void StartNetworkAsHost()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-        NetworkManager.Singleton.StartHost();
-    }
-
-    public void StartNetworkAsClient()
-    {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-        NetworkManager.Singleton.StartClient();
-    }
-
-    // called by UI when a player presses join
-    public void RequestJoin()
-    {
-        if (!IsClient) return;
-
-        JoinLobbyRpc();
-    }
-
-    [Rpc(SendTo.Server)]
-    private void JoinLobbyRpc(RpcParams rpcParams = default)
-    {
-        ulong clientId = rpcParams.Receive.SenderClientId;
-
-        if (lobbyPlayers.Count >= maxPlayers)
-        {
-            Debug.Log("Lobby full.");
+            Destroy(gameObject);
             return;
         }
 
-        int playerIndex = 0;
+        instance = this;
 
-        foreach (var p in lobbyPlayers)
-            if (p.ClientId == clientId)
-                playerIndex++;
+        lobbyPlayers = new NetworkList<LobbyPlayer>();
+        lobbyPlayers.OnListChanged += OnLobbyListChanged;
 
-        LobbyPlayer newPlayer = new LobbyPlayer(clientId, playerIndex);
-
-        lobbyPlayers.Add(newPlayer);
-
-        Debug.Log($"Client {clientId} added player {playerIndex}");
-        Debug.Log($"Total players: {lobbyPlayers.Count}");
     }
 
-    private void OnClientDisconnect(ulong clientId)
+    void Update()
+    {
+        //DEBUG
+        debugLobbyPlayers.Clear();
+
+        foreach (var p in lobbyPlayers)
+        {
+            debugLobbyPlayers.Add(p);
+        }
+        //
+    }
+
+
+    public int TotalPlayers => lobbyPlayers.Count;
+
+    // Return the NetworkList itself
+    public NetworkList<LobbyPlayer> LobbyPlayers => lobbyPlayers;
+
+    /// <summary>
+    /// Called by local client when a player wants to join (local player)
+    /// </summary>
+    public void RequestJoin(int localPlayerId)
+    {
+        if (!IsClient) return;
+
+        JoinLobbyRpc(localPlayerId);
+    }
+
+    /// <summary>
+    /// RPC: Server adds the player to the NetworkList
+    /// </summary>
+    [Rpc(SendTo.Server)]
+    private void JoinLobbyRpc(int localPlayerId, RpcParams rpcParams = default)
+    {
+        if (!IsServer) return; // Only server modifies the NetworkList
+
+        ulong clientId = rpcParams.Receive.SenderClientId;
+
+        if (lobbyPlayers.Count >= maxPlayers)
+            return;
+
+        // Prevent duplicates (same local player on same client)
+        foreach (var p in lobbyPlayers)
+        {
+            if (p.ClientId == clientId && p.LocalPlayerId == localPlayerId)
+                return;
+        }
+
+        int slot = GetNextAvailableSlot();
+        if (slot == -1) return;
+
+        LobbyPlayer newPlayer = new LobbyPlayer(clientId, localPlayerId, slot);
+        lobbyPlayers.Add(newPlayer);
+
+        Debug.Log($"Client {clientId} Local {localPlayerId} joined slot {slot}");
+    }
+
+    /// <summary>
+    /// Removes all players for a client (e.g., disconnect)
+    /// </summary>
+    public void RemoveLobbyPlayer(ulong clientId)
     {
         if (!IsServer) return;
 
-        lobbyPlayers.RemoveAll(p => p.ClientId == clientId);
+        for (int i = lobbyPlayers.Count - 1; i >= 0; i--)
+        {
+            if (lobbyPlayers[i].ClientId == clientId)
+            {
+                lobbyPlayers.RemoveAt(i);
+            }
+        }
 
-        Debug.Log($"Client {clientId} disconnected");
-        Debug.Log($"Total players: {lobbyPlayers.Count}");
+        Debug.Log($"Client {clientId} disconnected. Total players: {lobbyPlayers.Count}");
     }
 
-    private void OnClientConnected(ulong clientId)
+    /// <summary>
+    /// Returns first available slot (0..maxPlayers-1)
+    /// </summary>
+    private int GetNextAvailableSlot()
     {
-        if (clientId != NetworkManager.Singleton.LocalClientId) return;
-
-        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
-
-        RequestJoin();
+        for (int i = 0; i < maxPlayers; i++)
+        {
+            bool used = false;
+            foreach (var p in lobbyPlayers)
+            {
+                if (p.Slot == i)
+                {
+                    used = true;
+                    break;
+                }
+            }
+            if (!used) return i;
+        }
+        return -1;
     }
 
-    public List<LobbyPlayer> GetLobbyPlayers()
+    /// <summary>
+    /// Optional: UI / debug update when lobby changes
+    /// </summary>
+    private void OnLobbyListChanged(NetworkListEvent<LobbyPlayer> changeEvent)
     {
-        return lobbyPlayers;
+        Debug.Log($"Lobby changed: {changeEvent.Type}, total players: {lobbyPlayers.Count}");
     }
 }
